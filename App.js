@@ -46,6 +46,7 @@ const categories= [
 ]
 
 export default function App() {
+  const [category, setCategory] = useState(categories[0])
   const [firstName, setFirstName] = useState('')
   const { landscape } = useDeviceOrientation();
   return (
@@ -54,7 +55,7 @@ export default function App() {
       flex: 1
     }}>
     
-    <AppPicker items={categories} icon="apps" placeholder="Categories"/>
+    <AppPicker selectedItem={category} onSelectItem={item => setCategory(item)} items={categories} icon="apps" placeholder="Categories"/>
     <AppTextInput placeholder="Hello there" icon="email"/>
 
     </View> 
