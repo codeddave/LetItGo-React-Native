@@ -27,6 +27,8 @@ import MessagesScreen from "./app/screens/MessagesScreen"
 import AccountScreen from "./app/screens/AccountScreen"
 import ListingsScreen from "./app/screens/ListingsScreen"
 import AppTextInput from "./app/components/AppTextInput"
+import AppPicker from "./app/components/AppPicker"
+
 
 
 
@@ -42,6 +44,7 @@ export default function App() {
       flex: 1
     }}>
     
+    <AppPicker icon="apps" placeholder="Categories"/>
     <AppTextInput placeholder="Hello there" icon="email"/>
 
     </View> 
