@@ -30,10 +30,20 @@ import AppTextInput from "./app/components/AppTextInput"
 import AppPicker from "./app/components/AppPicker"
 
 
-
-
-
-
+const categories= [
+  {
+    label: "Furniture", 
+    value: 1
+  }, 
+    {
+    label: "Clothing", 
+    value: 2
+  }, 
+    {
+    label: "Furniture", 
+    value: 3
+  }
+]
 
 export default function App() {
   const [firstName, setFirstName] = useState('')
@@ -44,7 +54,7 @@ export default function App() {
       flex: 1
     }}>
     
-    <AppPicker icon="apps" placeholder="Categories"/>
+    <AppPicker items={categories} icon="apps" placeholder="Categories"/>
     <AppTextInput placeholder="Hello there" icon="email"/>
 
     </View> 
