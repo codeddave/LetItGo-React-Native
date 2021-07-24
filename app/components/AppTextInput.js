@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, TextInput, StyleSheet, Platform, SafeAreaView } from 'react-native';
 import {MaterialCommunityIcons} from "@expo/vector-icons"
 import colors from "../config/colors";
- 
+import defaultStyles from "../config/styles"
+
  function AppTextInput({icon, ...otherProps }) {
   return (
     <SafeAreaView>
@@ -28,8 +29,8 @@ const styles = StyleSheet.create({
       marginRight: 10,
     },
     textInput: {
-        fontSize: 18, 
-        fontFamily: Platform.OS === "android" ? "Roboto": 'Avenir', 
+              ...defaultStyles.text,
+
         width: "100%"
 
     }
