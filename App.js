@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,8 @@ import {
   Platform,
   Image,
   Dimensions,
-  StatusBar
+  StatusBar, 
+  TextInput
 } from "react-native";
 import {
   useDimensions,
@@ -31,6 +32,7 @@ import ListingsScreen from "./app/screens/ListingsScreen"
 
 
 export default function App() {
+  const [firstName, setFirstName] = useState('')
   const { landscape } = useDeviceOrientation();
   return (
     <View style={{
@@ -38,7 +40,10 @@ export default function App() {
       flex: 1
     }}>
     
-      <ListingsScreen/>
+  <SafeAreaView>
+      <TextInput onChangeText={text => setFirstName(text)}  placeholder="first Name" style={{ borderBottomColor: "#ccc", borderBottomWidth: 1}}/>
+      <Text>{firstName}</Text>
+</SafeAreaView>
     </View> 
   
   )
