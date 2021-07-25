@@ -2,9 +2,19 @@ import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import AppTextInput from "../components/AppTextInput"
 import AppButton from "../components/AppButton"
+import AppText from "../components/AppText";
+import ErrorMessage from "../components/ErrorMessage";
+
+
 import colors from "../config/colors";
 import {Formik} from 'formik'
+import * as Yup from 'yup'
 
+
+const loginValidationSchema = Yup.object().shape({
+    email: Yup.string().required().email().label("Email"),
+    password: Yup.string().required().label("Password")
+})
 const LoginScreen = () => {
 
     return (
@@ -13,13 +23,21 @@ const LoginScreen = () => {
             <Text style={styles.text}>Let It Go!</Text>
             <Formik
                initialValues = {{email: "", password: ""}}
-               onSubmit={values => console.log(values)}
+               onSubmit={(values, /* {resetForm} */) => {
+                   /* resetForm() */
+                   console.log(values)
+                   
+                   }}
+               validationSchema={loginValidationSchema}
             > 
-                {({handleChange, handleSubmit})=> (
+                {({handleChange, handleSubmit, errors, setFieldTouched, touched})=> (
             
             <>
-                <AppTextInput onChangeText={handleChange("email")} autoCapitalize="none" autoCorrect={false} icon="email" placeholder="Email" keyboardType="email-address" textContentType="emailAddress" />
-                <AppTextInput onChangeText={handleChange("password")}  autoCapitalize="none" autoCorrect={false} icon="lock" placeholder="Password" secureTextEntry textContentType="password" />
+                <AppTextInput onBlur={() =>setFieldTouched("email")} onChangeText={handleChange("email")} autoCapitalize="none" autoCorrect={false} icon="email" placeholder="Email" keyboardType="email-address" textContentType="emailAddress" />
+                {touched.email ?<ErrorMessage error={errors.email}/>: null}
+                <AppTextInput onBlur={()=> setFieldTouched("password")} onChangeText={handleChange("password")}  autoCapitalize="none" autoCorrect={false} icon="lock" placeholder="Password" secureTextEntry textContentType="password" />
+                {touched.password ? <ErrorMessage error={errors.password}/> : null}
+
                 <AppButton title="Log In" onPress={handleSubmit} color="black"/>
             </>
                 )}

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native'
 import ListItem from "../components/ListItem"
 import ListItemSeparator from "../components/ListItemSeparator"
 import ListItemDeleteAction from '../components/ListItemDeleteAction'
-
+import Icon from "../components/Icon"
 
 const initialMessages = [{id: "1", title: "T1", description: "D1", image: require("../assets/chair.jpg")}, {id: "2", title: "T2", description: "D2", image: require("../assets/chair.jpg")}, {id: "3", title: "T3", description: "D3", image: require("../assets/chair.jpg")} ]
 export default function MessagesScreen() {

@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
       marginRight: 10,
     },
     textInput: {
-              ...defaultStyles.text,
-
+        ...defaultStyles.text,
         width: "100%"
 
     }
