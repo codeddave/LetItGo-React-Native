@@ -12,7 +12,6 @@ import colors from "../config/colors";
 import AppForm from "../components/AppForm"
 
 
-
 const loginValidationSchema = Yup.object().shape({
     email: Yup.string().required().email().label("Email"),
     password: Yup.string().required().label("Password")
@@ -33,7 +32,6 @@ const LoginScreen = () => {
                 <AppFormField name="email" autoCapitalize="none" autoCorrect={false} icon="email" placeholder="Email" keyboardType="email-address" textContentType="emailAddress" />
                 <AppFormField name="password"  autoCapitalize="none" autoCorrect={false} icon="lock" placeholder="Password" secureTextEntry textContentType="password" />
                 <SubmitButton title="Log In" />
-
             </AppForm>
         </View>
     )
