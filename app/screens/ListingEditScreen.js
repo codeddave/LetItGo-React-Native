@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import AppForm from "../components/AppForm";
 import AppFormPicker from "../components/AppFormPicker";
 import * as Yup from "yup";
 import AppFormField from "../components/AppFormField";
+import SubmitButton from "../components/SubmitButton";
 
 const listingEditValidationSchema = Yup.object().shape({
   title: Yup.string().required().label("Title"),
@@ -18,7 +19,7 @@ const categories = [
 ];
 const ListingEditScreen = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <AppForm
         initialValues={{
           title: "",
@@ -36,6 +37,11 @@ const ListingEditScreen = () => {
           name="price"
           placeholder="Price"
         />
+        <AppFormPicker
+          items={categories}
+          name="category"
+          placeholder="Category"
+        />
         <AppFormField
           name="Description"
           multiline
@@ -43,15 +49,15 @@ const ListingEditScreen = () => {
           maxLength={255}
           placeholder="Description"
         />
-        <AppFormPicker
-          items={categories}
-          name="category"
-          placeholder="Category"
-        />
+        <SubmitButton title="Post" />
       </AppForm>
-      <Text></Text>
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+});
 export default ListingEditScreen;
