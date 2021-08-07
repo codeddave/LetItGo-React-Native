@@ -11,10 +11,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import defaultStyles from "../config/styles";
 
-function AppTextInput({ icon, ...otherProps }) {
+function AppTextInput({ icon, width = "100%", ...otherProps }) {
   return (
     <SafeAreaView>
-      <View style={styles.container}>
+      <View style={[styles.container, { width }]}>
         {icon ? (
           <MaterialCommunityIcons
             name={icon}
@@ -26,7 +26,7 @@ function AppTextInput({ icon, ...otherProps }) {
 
         <TextInput
           placeholderTextColor={colors.mediumGrey}
-          style={styles.textInput}
+          style={[styles.textInput]}
           {...otherProps}
         />
       </View>
