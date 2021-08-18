@@ -33,6 +33,8 @@ import AppPicker from "./app/components/AppPicker";
 import ListingEditScreen from "./app/screens/ListingEditScreen";
 
 import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
+
 const categories = [
   {
     label: "Furniture",
@@ -50,6 +52,7 @@ const categories = [
 
 export default function App() {
   const [category, setCategory] = useState(categories[0]);
+  const [image, setImage] = useState();
   const [firstName, setFirstName] = useState("");
   const { landscape } = useDeviceOrientation();
   const requestPermission = async () => {
@@ -62,6 +65,14 @@ export default function App() {
   useEffect(() => {
     requestPermission();
   }, []);
+  const selectImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync();
+      setImage(result.uri);
+    } catch (error) {
+      console.log("error reading an image");
+    }
+  };
   return (
     <View
       style={{
@@ -69,9 +80,12 @@ export default function App() {
         flex: 1,
       }}
     >
-      <ListingEditScreen />
-      {/* AppPicker selectedItem={category} onSelectItem={item => setCategory(item)} items={categories} icon="apps" placeholder="Categories"/>
-    <AppTextInput placeholder="Hello there" icon="email"/> */}
+      <Button
+        title="Select Image"
+        onPress={selectImage}
+        style={{ marginTop: 40 }}
+      />
+      <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
     </View>
   );
 
