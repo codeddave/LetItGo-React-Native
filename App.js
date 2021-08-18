@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -32,6 +32,7 @@ import AppTextInput from "./app/components/AppTextInput";
 import AppPicker from "./app/components/AppPicker";
 import ListingEditScreen from "./app/screens/ListingEditScreen";
 
+import * as ImagePicker from "expo-image-picker";
 const categories = [
   {
     label: "Furniture",
@@ -51,6 +52,16 @@ export default function App() {
   const [category, setCategory] = useState(categories[0]);
   const [firstName, setFirstName] = useState("");
   const { landscape } = useDeviceOrientation();
+  const requestPermission = async () => {
+    const result = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (!result.granted) {
+      alert("You need to enable permission to access the library");
+    }
+  };
+  useEffect(() => {
+    requestPermission();
+  }, []);
   return (
     <View
       style={{
