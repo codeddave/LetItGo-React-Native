@@ -34,6 +34,7 @@ import ListingEditScreen from "./app/screens/ListingEditScreen";
 
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
+import ImageInput from "./app/components/ImageInput";
 
 const categories = [
   {
@@ -86,6 +87,7 @@ export default function App() {
         style={{ marginTop: 40 }}
       />
       <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      <ImageInput ImageUri={image} />
     </View>
   );
 
