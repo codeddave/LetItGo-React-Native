@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import colors from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -22,6 +23,11 @@ const ImageInput = ({ ImageUri, handlePress, onChangeImage }) => {
       } catch (error) {
         console.log("error reading an image");
       }
+    } else {
+      Alert.alert("Delete", "Are you sure you want to delete this image?", [
+        { text: "Yes", onPress: () => onChangeImage(null) },
+        { text: "No" },
+      ]);
     }
   };
   return (
