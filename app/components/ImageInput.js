@@ -1,19 +1,41 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 import colors from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 
-const ImageInput = ({ ImageUri }) => {
+const ImageInput = ({ ImageUri, handlePress, onChangeImage }) => {
+  const handlePress = () => {
+    if (!ImageUri) {
+      try {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          quality: 0.5,
+        });
+        onChangeImage(result.uri);
+      } catch (error) {
+        console.log("error reading an image");
+      }
+    }
+  };
   return (
-    <View style={styles.container}>
-      {!ImageUri ? (
-        <MaterialCommunityIcons name="camera" colors={colors.mediumGrey} />
-      ) : null}
+    <TouchableWithoutFeedback onPress={handlePress}>
+      <View style={styles.container}>
+        {!ImageUri ? (
+          <MaterialCommunityIcons name="camera" colors={colors.mediumGrey} />
+        ) : null}
 
-      {ImageUri ? (
-        <Image source={{ uri: ImageUri }} style={styles.image} />
-      ) : null}
-    </View>
+        {ImageUri ? (
+          <Image source={{ uri: ImageUri }} style={styles.image} />
+        ) : null}
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -24,6 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: 100,
+    overflow: "hidden",
     width: 100,
   },
   image: {

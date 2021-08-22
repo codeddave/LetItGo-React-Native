@@ -87,7 +87,7 @@ export default function App() {
         style={{ marginTop: 40 }}
       />
       <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      <ImageInput ImageUri={image} />
+      <ImageInput ImageUri={image} onChangeImage={(uri) => setImage(uri)} />
     </View>
   );
 
