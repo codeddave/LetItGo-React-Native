@@ -35,6 +35,7 @@ import ListingEditScreen from "./app/screens/ListingEditScreen";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import ImageInput from "./app/components/ImageInput";
+import ImageInputList from "./app/components/ImageInputList";
 
 const categories = [
   {
@@ -53,7 +54,7 @@ const categories = [
 
 export default function App() {
   const [category, setCategory] = useState(categories[0]);
-  const [image, setImage] = useState();
+  const [imageUris, setImageUris] = useState([]);
   const [firstName, setFirstName] = useState("");
   const { landscape } = useDeviceOrientation();
   const requestPermission = async () => {
@@ -74,6 +75,12 @@ export default function App() {
       console.log("error reading an image");
     }
   };
+  const handleAddImage = (uri) => {
+    setImageUris([...imageUris, uri]);
+  };
+  const handleRemoveImage = (uri) => {
+    setImageUris(imageUris.filter((imageUri) => uri !== imageUri));
+  };
   return (
     <View
       style={{
@@ -86,8 +93,11 @@ export default function App() {
         onPress={selectImage}
         style={{ marginTop: 40 }}
       />
-      <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      <ImageInput ImageUri={image} onChangeImage={(uri) => setImage(uri)} />
+      <ImageInputList
+        imageUris={imageUris}
+        onAddImage={handleAddImage}
+        onRemoveImage={handleRemoveImage}
+      />
     </View>
   );
 

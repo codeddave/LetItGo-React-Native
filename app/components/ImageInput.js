@@ -11,8 +11,8 @@ import colors from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
-const ImageInput = ({ ImageUri, handlePress, onChangeImage }) => {
-  const handlePress = () => {
+const ImageInput = ({ ImageUri, onChangeImage }) => {
+  const handlePress = async () => {
     if (!ImageUri) {
       try {
         const result = await ImagePicker.launchImageLibraryAsync({
