@@ -67,20 +67,7 @@ export default function App() {
   useEffect(() => {
     requestPermission();
   }, []);
-  const selectImage = async () => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync();
-      setImage(result.uri);
-    } catch (error) {
-      console.log("error reading an image");
-    }
-  };
-  const handleAddImage = (uri) => {
-    setImageUris([...imageUris, uri]);
-  };
-  const handleRemoveImage = (uri) => {
-    setImageUris(imageUris.filter((imageUri) => uri !== imageUri));
-  };
+
   return (
     <View
       style={{
@@ -88,24 +75,15 @@ export default function App() {
         flex: 1,
       }}
     >
-      <Button
-        title="Select Image"
-        onPress={selectImage}
-        style={{ marginTop: 40 }}
-      />
-      <ImageInputList
-        imageUris={imageUris}
-        onAddImage={handleAddImage}
-        onRemoveImage={handleRemoveImage}
-      />
+      <ListingEditScreen />
     </View>
   );
-
-  const styles = StyleSheet.create({
-    background: {
-      flex: 1,
-
-      paddingTop: Platform.OS === "android" ? 20 : 0,
-    },
-  });
 }
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+
+    paddingTop: Platform.OS === "android" ? 20 : 0,
+  },
+});
