@@ -6,24 +6,27 @@ const ImageInputList = ({ imageUris = [], onRemoveImage, onAddImage }) => {
   const scrollView = useRef();
 
   return (
-    <ScrollView
-      horizontal
-      ref={scrollView}
-      onContentSizeChange={() => scrollView.current.scrollToEnd()}
-    >
-      <View style={styles.container}>
-        {imageUris.map((uri) => (
-          <View key={uri} style={styles.image}>
-            <ImageInput
-              ImageUri={uri}
-              onChangeImage={() => onRemoveImage(uri)}
-            />
-          </View>
-        ))}
+    <View>
+      <ScrollView
+        style={{ backgroundColor: "yellow" }}
+        horizontal
+        ref={scrollView}
+        onContentSizeChange={() => scrollView.current.scrollToEnd()}
+      >
+        <View style={styles.container}>
+          {imageUris.map((uri) => (
+            <View key={uri} style={styles.image}>
+              <ImageInput
+                ImageUri={uri}
+                onChangeImage={() => onRemoveImage(uri)}
+              />
+            </View>
+          ))}
 
-        <ImageInput onChangeImage={(uri) => onAddImage(uri)} />
-      </View>
-    </ScrollView>
+          <ImageInput onChangeImage={(uri) => onAddImage(uri)} />
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
