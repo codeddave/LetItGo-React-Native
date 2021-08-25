@@ -37,7 +37,7 @@ import * as Permissions from "expo-permissions";
 import ImageInput from "./app/components/ImageInput";
 import ImageInputList from "./app/components/ImageInputList";
 import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 const categories = [
   {
     label: "Furniture",
@@ -53,7 +53,25 @@ const categories = [
   },
 ];
 
-const Tweets = () => <Text>Tweets</Text>;
+const Link = () => {
+  const navigation = useNavigation();
+  return (
+    <Button
+      title="Link Outside "
+      onPress={() => navigation.navigate("TweetDetails")}
+    />
+  );
+};
+const Tweets = ({ navigation }) => (
+  <>
+    <Text>Tweets</Text>
+    <Button
+      title="Go To Details"
+      onPress={() => navigation.navigate("TweetDetails")}
+    />
+    <Link />
+  </>
+);
 
 const TweetDetails = () => <Text>Tweet Details</Text>;
 
@@ -62,7 +80,7 @@ const Stack = createStackNavigator();
 const StackNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen name="Tweets" component={Tweets} />
-    <Stack.Screen name="TweetsDetails" component={TweetDetails} />
+    <Stack.Screen name="TweetDetails" component={TweetDetails} />
   </Stack.Navigator>
 );
 export default function App() {
