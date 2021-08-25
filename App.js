@@ -36,7 +36,8 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import ImageInput from "./app/components/ImageInput";
 import ImageInputList from "./app/components/ImageInputList";
-
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 const categories = [
   {
     label: "Furniture",
@@ -52,6 +53,18 @@ const categories = [
   },
 ];
 
+const Tweets = () => <Text>Tweets</Text>;
+
+const TweetDetails = () => <Text>Tweet Details</Text>;
+
+const Stack = createStackNavigator();
+
+const StackNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Tweets" component={Tweets} />
+    <Stack.Screen name="TweetsDetails" component={TweetDetails} />
+  </Stack.Navigator>
+);
 export default function App() {
   const [category, setCategory] = useState(categories[0]);
   const [imageUris, setImageUris] = useState([]);
@@ -75,7 +88,9 @@ export default function App() {
         flex: 1,
       }}
     >
-      <ListingEditScreen />
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
     </View>
   );
 }
