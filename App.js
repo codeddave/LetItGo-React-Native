@@ -37,6 +37,8 @@ import * as Permissions from "expo-permissions";
 import ImageInput from "./app/components/ImageInput";
 import ImageInputList from "./app/components/ImageInputList";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 const categories = [
   {
@@ -78,7 +80,12 @@ const TweetDetails = ({ route }) => <Text>Tweet Details{route.params.id}</Text>;
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      headerStyle: { backgroundColor: "green" },
+      headerTintColor: "white",
+    }}
+  >
     <Stack.Screen name="Tweets" component={Tweets} />
     <Stack.Screen
       name="TweetDetails"
@@ -90,6 +97,19 @@ const StackNavigator = () => (
     />
   </Stack.Navigator>
 );
+
+const Account = () => <Text>This is the Account Tab</Text>;
+
+const Tab = createBottomTabNavigator();
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Feed" component={Tweets} />
+      <Tab.Screen name="Account" component={Account} />
+    </Tab.Navigator>
+  );
+};
 export default function App() {
   const [category, setCategory] = useState(categories[0]);
   const [imageUris, setImageUris] = useState([]);
@@ -114,7 +134,7 @@ export default function App() {
       }}
     >
       <NavigationContainer>
-        <StackNavigator />
+        <TabNavigator />
       </NavigationContainer>
     </View>
   );
