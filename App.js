@@ -42,6 +42,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AuthNavigator from "./app/navgation/AuthNavigator";
 const categories = [
   {
     label: "Furniture",
@@ -149,7 +150,7 @@ export default function App() {
       }}
     >
       <NavigationContainer>
-        <TabNavigator />
+        <AuthNavigator />
       </NavigationContainer>
     </View>
   );

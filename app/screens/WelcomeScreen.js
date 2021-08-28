@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
 import AppButton from "../components/AppButton";
-function WelcomScreen() {
+function WelcomScreen({ navigation }) {
   return (
     <ImageBackground
       style={styles.background}
@@ -13,8 +13,12 @@ function WelcomScreen() {
           You don't need it anymore? Let It Go
         </Text>
       </View>
-      <AppButton title="Log In" color="primary" />
-      <AppButton title ="Register" color="secondary"/>
+      <AppButton
+        title="Log In"
+        color="primary"
+        onPress={() => navigation.navigate("Login")}
+      />
+      <AppButton title="Register" color="secondary" />
     </ImageBackground>
   );
 }
@@ -24,6 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
+    paddingHorizontal: 10,
   },
   logoContainer: {
     flex: 1,
