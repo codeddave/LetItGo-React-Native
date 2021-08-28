@@ -40,6 +40,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 const categories = [
   {
     label: "Furniture",
@@ -104,8 +106,21 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Feed" component={Tweets} />
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveBackgroundColor: "tomato",
+        tabBarActiveTintColor: "white",
+      }}
+    >
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <MaterialCommunityIcons name="home" size={size} color={color} />
+          ),
+        }}
+        name="Feed"
+        component={Tweets}
+      />
       <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   );
