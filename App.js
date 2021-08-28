@@ -67,20 +67,26 @@ const Tweets = ({ navigation }) => (
     <Text>Tweets</Text>
     <Button
       title="Go To Details"
-      onPress={() => navigation.navigate("TweetDetails")}
+      onPress={() => navigation.navigate("TweetDetails", { id: 1 })}
     />
     <Link />
   </>
 );
-
-const TweetDetails = () => <Text>Tweet Details</Text>;
+//helenugulava@gmail.com
+const TweetDetails = ({ route }) => <Text>Tweet Details{route.params.id}</Text>;
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen name="Tweets" component={Tweets} />
-    <Stack.Screen name="TweetDetails" component={TweetDetails} />
+    <Stack.Screen
+      name="TweetDetails"
+      component={TweetDetails}
+      options={({ route }) => ({
+        title: route.params.id,
+      })} /* options={{title: "Tweet Details"}} */
+    />
   </Stack.Navigator>
 );
 export default function App() {
