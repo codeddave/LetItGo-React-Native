@@ -3,9 +3,9 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AccountScreen from "../screens/AccountScreen";
 import FeedNavigator from "./FeedNavigator";
+import ListingEditScreen from "../screens/ListingEditScreen";
 
 const Tab = createBottomTabNavigator();
-
 const AppNavigator = () => {
   return (
     <Tab.Navigator>
