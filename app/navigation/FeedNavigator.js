@@ -10,9 +10,7 @@ const FeedNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        options={{
-          headerMode: "none",
-        }}
+
         name="Listings"
         component={ListingsScreen}
       />
