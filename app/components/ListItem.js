@@ -20,7 +20,6 @@ function ListItem({
   renderRightActions,
 }) {
   return (
-    <View>
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight underlayColor={colors.lightGrey} onPress={onPress}>
         <View style={styles.listItemContainer}>
@@ -33,7 +32,7 @@ function ListItem({
           <MaterialCommunityIcons name="chevron-right" size={25} />
         </View>
       </TouchableHighlight>
-    </Swipeable></View>
+    </Swipeable>
   );
 }
 const styles = StyleSheet.create({
