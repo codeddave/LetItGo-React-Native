@@ -12,7 +12,8 @@ const stuff = [
         icon : {
             name: "format-list-bulleted", 
             backgroundColor: "red"
-        }
+        }, 
+        pageName: "Listings"
     }, 
 
     {
@@ -20,11 +21,12 @@ const stuff = [
         icon : {
             name: "email", 
             backgroundColor: "grey"
-        }
+        }, 
+        pageName: "Messages"
     }
 ]
 
-function AccountScreen() {
+function AccountScreen({navigation}) {
   return (
       <View style={styles.screen}>
         <View style={styles.container}>
@@ -36,7 +38,7 @@ function AccountScreen() {
                 data={stuff}
                 keyExtractor={(item)=> item.title}
                 ItemSeparatorComponent={()=> <ListItemSeparator/>}
-                renderItem={({item}) => <ListItem title={item.title} IconComponent={<Icon name={item.icon.name} backgroundColor={item.icon.backgroundColor}/>}/>}
+                renderItem={({item}) => <ListItem title={item.title} IconComponent={<Icon name={item.icon.name} backgroundColor={item.icon.backgroundColor}/>} onPress={()=>navigation.navigate(item.pageName)}/>}
             />
          </View>
          <View style={styles.container}> 
