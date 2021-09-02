@@ -8,7 +8,6 @@ const ImageInputList = ({ imageUris = [], onRemoveImage, onAddImage }) => {
   return (
     <View>
       <ScrollView
-        style={{ backgroundColor: "yellow" }}
         horizontal
         ref={scrollView}
         onContentSizeChange={() => scrollView.current.scrollToEnd()}
