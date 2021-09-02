@@ -1,5 +1,5 @@
-import React, { Component, useRef } from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import React, { useRef } from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
 import ImageInput from "./ImageInput";
 
 const ImageInputList = ({ imageUris = [], onRemoveImage, onAddImage }) => {
