@@ -5,8 +5,4 @@ const apiClient = create({
 }) 
 
 
-apiClient.get("/").then(response => {
-    if(!response.ok ){ 
-        response.problem
-    }
-})
+export default apiClient
