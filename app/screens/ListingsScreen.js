@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, SafeAreaView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import ListItem from "../components/ListItem";
 import Card from "../components/Card";
 import colors from "../config/colors";
 import { getListings } from "../api/listings";
 import AppButton from "../components/AppButton";
+import AppActivityIndicator from "../components/AppActivityIndicator";
 
 const listings = [
   {
@@ -37,8 +45,10 @@ const listings = [
 function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadListings = async () => {
+    setIsLoading(true);
     /*  await getListings().then((response) => {
       if (!response.ok) {
         console.log("something went wrong");
@@ -48,13 +58,15 @@ function ListingsScreen({ navigation }) {
       console.log(response);
     }); */
     const response = await getListings();
+    setIsLoading(false);
+
     if (!response.ok) {
       setError(true);
       return;
     }
+
     setError(false);
     setListings(response.data);
-    console.log(listings);
   };
   useEffect(() => {
     loadListings();
@@ -67,18 +79,22 @@ function ListingsScreen({ navigation }) {
           <AppButton title="Retry" onPress={getListings} />
         </>
       ) : (
-        <FlatList
-          data={listings}
-          keyExtractor={(listing) => listing.id.toString()}
-          renderItem={({ item }) => (
-            <Card
-              title={item.title}
-              subTitle={"$" + item.price}
-              image={item.image}
-              onPress={() => navigation.navigate("ListingsDetails")}
-            />
-          )}
-        />
+        <>
+          <AppActivityIndicator visible />
+          {/* <FlatList
+            data={listings}
+            keyExtractor={(listing) => listing.id.toString()}
+            renderItem={({ item }) => (
+              <Card
+                title={item.title}
+                subTitle={"$" + item.price}
+                image={item.image}
+                onPress={() => navigation.navigate("ListingsDetails")}
+              />
+            )}
+          />
+ */}
+        </>
       )}
     </View>
   );
