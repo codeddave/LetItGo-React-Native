@@ -13,6 +13,7 @@ import colors from "../config/colors";
 import { getListings } from "../api/listings";
 import AppButton from "../components/AppButton";
 import AppActivityIndicator from "../components/AppActivityIndicator";
+import useApi from "../components/hooks/useApi";
 
 const listings = [
   {
@@ -43,34 +44,19 @@ const listings = [
  } */
 ];
 function ListingsScreen({ navigation }) {
-  const [listings, setListings] = useState([]);
-  const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    data: listings,
+    error,
+    isLoading,
+    request: loadListings,
+  } = useApi(getListings);
 
-  const loadListings = async () => {
-    setIsLoading(true);
-    /*  await getListings().then((response) => {
-      if (!response.ok) {
-        console.log("something went wrong");
-      }
-
-      setListings(response);
-      console.log(response);
-    }); */
-    const response = await getListings();
-    setIsLoading(false);
-
-    if (!response.ok) {
-      setError(true);
-      return;
-    }
-
-    setError(false);
-    setListings(response.data);
-  };
   useEffect(() => {
     loadListings();
+    console.log(isLoading);
   }, []);
+  console.log(isLoading);
+
   return (
     <View style={styles.screen}>
       {error ? (
@@ -80,8 +66,8 @@ function ListingsScreen({ navigation }) {
         </>
       ) : (
         <>
-          <AppActivityIndicator visible />
-          {/* <FlatList
+          <AppActivityIndicator visible={isLoading} />
+          <FlatList
             data={listings}
             keyExtractor={(listing) => listing.id.toString()}
             renderItem={({ item }) => (
@@ -93,7 +79,6 @@ function ListingsScreen({ navigation }) {
               />
             )}
           />
- */}
         </>
       )}
     </View>

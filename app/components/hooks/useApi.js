@@ -1,7 +1,6 @@
-import React from "react";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 
-function useApi({ apiFn }) {
+function useApi(apiFn) {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
