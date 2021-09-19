@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import AppForm from "../components/AppForm";
 import AppFormPicker from "../components/AppFormPicker";
@@ -33,21 +33,32 @@ const categories = [
   { label: "Shoes", value: "shoes", backgroundColor: "blue", icon: "lock" },
 ];
 
-const handleSubmit = async (values) => {
-  const response = await addListings({
-    ...values,
-    image: values.image[0],
-  });
-
-  console.log(response);
-  if (!response.ok) {
-    console.log("something went wrong");
-  } else {
-    alert("success!");
-  }
-};
-
 const ListingEditScreen = () => {
+  const [progress, setProgress] = useState(0);
+
+  const unUploadProgress = (prog) => {
+    console.log(prog);
+  };
+
+  const handleSubmit = async (values) => {
+    const response = await addListings(
+      values,
+      /*  {
+        ...values,
+        image: values.image[0],
+      }, */
+      (progress) => console.log(progress)
+    );
+
+    if (!response.ok) {
+      console.log("something went wrong");
+    } else {
+      alert("success!");
+    }
+
+    //console.log(progress);
+  };
+
   return (
     <View style={styles.container}>
       <AppForm
@@ -56,12 +67,12 @@ const ListingEditScreen = () => {
           price: "",
           description: "",
           category: "jljlb",
-          image: [],
+          images: [],
         }}
         validationSchema={listingEditValidationSchema}
         onSubmit={handleSubmit}
       >
-        <FormImagePicker name="image" />
+        <FormImagePicker name="images" />
         <AppFormField name="title" maxLength={255} placeholder="Title" />
         <AppFormField
           keyboardType="numeric"

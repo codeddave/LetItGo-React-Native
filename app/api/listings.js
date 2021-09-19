@@ -3,8 +3,10 @@ import client from "./client";
 const endpoint = "/products";
 export const getListings = () => client.get(endpoint);
 
-export const addListings = (listing) => client.post(endpoint, listing);
-
+export const addListings = (listing, onUploadProgress) =>
+  client.post(endpoint, listing, {
+    onUploadProgress: (progress) => onUploadProgress(progress),
+  });
 export const getCategories = () => client.get("/products/categories");
 
 /* let listing;
