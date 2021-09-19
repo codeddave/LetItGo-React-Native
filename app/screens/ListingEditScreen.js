@@ -7,6 +7,8 @@ import AppFormField from "../components/AppFormField";
 import SubmitButton from "../components/SubmitButton";
 import CategoryPickerItem from "../components/CategoryPickerItem";
 import FormImagePicker from "../components/FormImagePicker";
+import useApi from "../components/hooks/useApi";
+import { addListings } from "../api/listings";
 
 const listingEditValidationSchema = Yup.object().shape({
   title: Yup.string().required().label("Title"),
@@ -16,10 +18,35 @@ const listingEditValidationSchema = Yup.object().shape({
   images: Yup.array().min(1, "Please select at least one image"),
 });
 const categories = [
-  { label: "Electronics", value: 1, backgroundColor: "red", icon: "apps" },
-  { label: "Clothing", value: 2, backgroundColor: "green", icon: "email" },
-  { label: "Shoes", value: 3, backgroundColor: "blue", icon: "lock" },
+  {
+    label: "Electronics",
+    value: "electronics",
+    backgroundColor: "red",
+    icon: "apps",
+  },
+  {
+    label: "Clothing",
+    value: "clothing",
+    backgroundColor: "green",
+    icon: "email",
+  },
+  { label: "Shoes", value: "shoes", backgroundColor: "blue", icon: "lock" },
 ];
+
+const handleSubmit = async (values) => {
+  const response = await addListings({
+    ...values,
+    image: values.image[0],
+  });
+
+  console.log(response);
+  if (!response.ok) {
+    console.log("something went wrong");
+  } else {
+    alert("success!");
+  }
+};
+
 const ListingEditScreen = () => {
   return (
     <View style={styles.container}>
@@ -28,13 +55,13 @@ const ListingEditScreen = () => {
           title: "",
           price: "",
           description: "",
-          category: null,
-          images: [],
+          category: "jljlb",
+          image: [],
         }}
         validationSchema={listingEditValidationSchema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
       >
-        <FormImagePicker name="images" />
+        <FormImagePicker name="image" />
         <AppFormField name="title" maxLength={255} placeholder="Title" />
         <AppFormField
           keyboardType="numeric"
@@ -51,7 +78,7 @@ const ListingEditScreen = () => {
           numberOfColumns={3}
         />
         <AppFormField
-          name="Description"
+          name="description"
           multiline
           numberOfLines={3}
           maxLength={255}
