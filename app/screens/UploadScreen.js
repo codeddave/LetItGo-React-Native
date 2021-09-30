@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, Modal } from "react-native";
 
-const UploadScreen = ({ progress }) => {
+const UploadScreen = ({ progress, visible = false }) => {
   return (
-    <Modal>
+    <Modal visible={visible}>
       <View style={styles.container}>
         <Text>{progress}</Text>
       </View>
