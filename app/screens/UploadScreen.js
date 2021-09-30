@@ -5,7 +5,7 @@ const UploadScreen = ({ progress, visible = false }) => {
   return (
     <Modal visible={visible}>
       <View style={styles.container}>
-        <Text>{progress}</Text>
+        <Text>{progress * 100}</Text>
       </View>
     </Modal>
   );
