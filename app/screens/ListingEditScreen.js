@@ -9,6 +9,7 @@ import CategoryPickerItem from "../components/CategoryPickerItem";
 import FormImagePicker from "../components/FormImagePicker";
 import useApi from "../components/hooks/useApi";
 import { addListings } from "../api/listings";
+import UploadScreen from "./UploadScreen";
 
 const listingEditValidationSchema = Yup.object().shape({
   title: Yup.string().required().label("Title"),
@@ -35,21 +36,22 @@ const categories = [
 
 const ListingEditScreen = () => {
   const [progress, setProgress] = useState(0);
+  const [uploadVisible, setUpdloadVisible] = useState(false);
 
   const unUploadProgress = (prog) => {
-    console.log(prog);
+    setProgress(prog);
   };
 
   const handleSubmit = async (values) => {
+    setUpdloadVisible(true);
     const response = await addListings(
-      values,
-      /*  {
+      {
         ...values,
         image: values.image[0],
-      }, */
-      (progress) => console.log(progress)
+      },
+      unUploadProgress
     );
-
+    setUpdloadVisible(false);
     if (!response.ok) {
       console.log("something went wrong");
     } else {
@@ -61,18 +63,19 @@ const ListingEditScreen = () => {
 
   return (
     <View style={styles.container}>
+      <UploadScreen visible={uploadVisible} progress={progress} />
       <AppForm
         initialValues={{
           title: "",
           price: "",
           description: "",
           category: "jljlb",
-          images: [],
+          image: [],
         }}
         validationSchema={listingEditValidationSchema}
         onSubmit={handleSubmit}
       >
-        <FormImagePicker name="images" />
+        <FormImagePicker name="image" />
         <AppFormField name="title" maxLength={255} placeholder="Title" />
         <AppFormField
           keyboardType="numeric"
