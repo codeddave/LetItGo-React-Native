@@ -43,6 +43,7 @@ const ListingEditScreen = () => {
   };
 
   const handleSubmit = async (values) => {
+    setProgress(0);
     setUpdloadVisible(true);
     const response = await addListings(
       {
