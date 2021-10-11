@@ -41,7 +41,6 @@ const ListingEditScreen = () => {
   const unUploadProgress = (prog) => {
     setProgress(prog);
   };
-
   const handleSubmit = async (values) => {
     setProgress(0);
     setUpdloadVisible(true);
@@ -52,6 +51,8 @@ const ListingEditScreen = () => {
       },
       unUploadProgress
     );
+    console.log(progress);
+
     setUpdloadVisible(false);
     if (!response.ok) {
       console.log("something went wrong");

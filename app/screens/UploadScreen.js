@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, Modal } from "react-native";
-import * as Progress from "react-native-progress";
+import { View, Text, Modal, StyleSheet } from "react-native";
 import colors from "../config/colors";
+import * as Progress from "react-native-progress";
 
 const UploadScreen = ({ progress = 0, visible = false }) => {
   return (
