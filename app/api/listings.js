@@ -5,7 +5,8 @@ export const getListings = () => client.get(endpoint);
 
 export const addListings = (listing, onUploadProgress) =>
   client.post(endpoint, listing, {
-    onUploadProgress: (progress) => onUploadProgress(progress),
+    onUploadProgress: (progress) =>
+      onUploadProgress(progress.loaded / progress.total),
   });
 export const getCategories = () => client.get("/products/categories");
 
