@@ -41,7 +41,7 @@ const ListingEditScreen = () => {
   const unUploadProgress = (prog) => {
     setProgress(prog);
   };
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     setProgress(0);
     setUpdloadVisible(true);
     const response = await addListings(
@@ -51,21 +51,23 @@ const ListingEditScreen = () => {
       },
       unUploadProgress
     );
-    console.log(progress);
 
-    setUpdloadVisible(false);
     if (!response.ok) {
-      console.log("something went wrong");
-    } else {
-      alert("success!");
+      setUpdloadVisible(false);
+      return alert("something went wrong");
     }
+    resetForm();
 
     //console.log(progress);
   };
 
   return (
     <View style={styles.container}>
-      <UploadScreen visible={uploadVisible} progress={progress} />
+      <UploadScreen
+        visible={uploadVisible}
+        progress={progress}
+        onDone={() => setUpdloadVisible(false)}
+      />
       <AppForm
         initialValues={{
           title: "",
