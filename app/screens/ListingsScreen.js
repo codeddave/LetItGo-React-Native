@@ -73,7 +73,7 @@ function ListingsScreen({ navigation }) {
                 title={item.title}
                 subTitle={"$" + item.price}
                 image={item.image}
-                onPress={() => navigation.navigate("ListingsDetails")}
+                onPress={() => navigation.navigate("ListingsDetails", item)}
               />
             )}
           />
