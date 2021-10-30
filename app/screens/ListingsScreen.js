@@ -53,9 +53,7 @@ function ListingsScreen({ navigation }) {
 
   useEffect(() => {
     loadListings();
-    console.log(isLoading);
   }, []);
-  console.log(isLoading);
 
   return (
     <View style={styles.screen}>

@@ -19,8 +19,10 @@ import * as Permissions from "expo-permissions";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 import navigationTheme from "./app/navigation/navigationTheme";
-import NetInfo from "@react-native-community/netinfo";
+import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
+import AppNavigator from "./app/navigation/AppNavigator";
 
+import { AsyncStorage } from "@react-native-async-storage/async-storage";
 export default function App() {
   /*  const [category, setCategory] = useState(categories[0]);
   const [imageUris, setImageUris] = useState([]);
@@ -37,7 +39,18 @@ export default function App() {
     requestPermission();
   }, []);
 
-  NetInfo.addEventListener((netinfo) => console.log(netinfo));
+  const netInfo = useNetInfo();
+
+  const demo = async () => {
+    try {
+      await AsyncStorage.setItem("person", JSON.stringify({ id: 12 }));
+
+      const value = await AsyncStorage.getItem("person");
+      const person = JSON.parse(value);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View
@@ -46,9 +59,9 @@ export default function App() {
         flex: 1,
       }}
     >
-      {/*       <NavigationContainer theme={navigationTheme}>
+      <NavigationContainer theme={navigationTheme}>
         <AppNavigator />
-      </NavigationContainer> */}
+      </NavigationContainer>
     </View>
   );
 }

@@ -12,7 +12,6 @@ apiClient.get = async (url, params, axiosConfig) => {
     cache.asyncStorageStore(url, response.data);
     return response;
   }
-
   const data = await cache.get(url);
   return data ? { ok: true, data } : response;
 };
