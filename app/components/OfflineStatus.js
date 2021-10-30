@@ -21,12 +21,14 @@ export default OfflineStatus;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    position: "absolute",
     top: Constants.statusBarHeight,
     width: "100%",
     height: 50,
+    zIndex: 1,
+    backgroundColor: colors.primary,
   },
   text: {
     color: colors.white,
