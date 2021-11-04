@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -23,7 +23,16 @@ import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 import AppNavigator from "./app/navigation/AppNavigator";
 
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
+import OfflineStatus from "./app/components/OfflineStatus";
+import LoginScreen from "./app/screens/LoginScreen";
+import WelcomScreen from "./app/screens/WelcomeScreen";
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import {
+  AuthContext,
+  AuthContextProvider,
+} from "./app/components/context/authContext";
 export default function App() {
+  const [user, setUser] = useState(null);
   /*  const [category, setCategory] = useState(categories[0]);
   const [imageUris, setImageUris] = useState([]);
   const [firstName, setFirstName] = useState("");
@@ -53,16 +62,21 @@ export default function App() {
   };
 
   return (
-    <View
-      style={{
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-        flex: 1,
-      }}
-    >
-      <NavigationContainer theme={navigationTheme}>
-        <AppNavigator />
-      </NavigationContainer>
-    </View>
+    <>
+      <AuthContext.Provider value={{ user, setUser }}>
+        <OfflineStatus />
+        <View
+          style={{
+            paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+            flex: 1,
+          }}
+        >
+          <NavigationContainer theme={navigationTheme}>
+            {user ? <AppNavigator /> : <AuthNavigator />}
+          </NavigationContainer>
+        </View>
+      </AuthContext.Provider>
+    </>
   );
 }
 

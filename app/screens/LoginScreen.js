@@ -1,23 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import SubmitButton from "../components/SubmitButton";
 import AppFormField from "../components/AppFormField";
-
-import AppButton from "../components/AppButton";
-import AppText from "../components/AppText";
 import ErrorMessage from "../components/ErrorMessage";
-import { Formik } from "formik";
 import * as Yup from "yup";
-import colors from "../config/colors";
 import AppForm from "../components/AppForm";
 import { logIn } from "../api/auth";
 import { useState } from "react/cjs/react.development";
+import { AuthContext } from "../components/context/authContext";
 
 const loginValidationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().label("Password"),
 });
 const LoginScreen = () => {
+  const { setUser } = useContext(AuthContext);
   const [loginFailed, setLoginFailed] = useState(false);
   return (
     <View style={styles.container}>
@@ -31,6 +28,7 @@ const LoginScreen = () => {
           const response = await logIn(values);
           if (!response.ok) return setLoginFailed(true);
           setLoginFailed(false);
+          setUser(response.data);
           console.log(response.data);
         }}
         validationSchema={loginValidationSchema}
