@@ -31,8 +31,11 @@ import {
   AuthContext,
   AuthContextProvider,
 } from "./app/components/context/authContext";
+import { getuserAuthFromStore } from "./app/utility/storage";
+import AppLoading from "expo-app-loading";
 export default function App() {
   const [user, setUser] = useState(null);
+  const [isReady, setIsReady] = useState(false);
   /*  const [category, setCategory] = useState(categories[0]);
   const [imageUris, setImageUris] = useState([]);
   const [firstName, setFirstName] = useState("");
@@ -53,7 +56,6 @@ export default function App() {
   const demo = async () => {
     try {
       await AsyncStorage.setItem("person", JSON.stringify({ id: 12 }));
-
       const value = await AsyncStorage.getItem("person");
       const person = JSON.parse(value);
     } catch (error) {
@@ -61,6 +63,23 @@ export default function App() {
     }
   };
 
+  const getUserAuth = async () => {
+    const userAuth = await getuserAuthFromStore();
+    console.log(userAuth);
+    if (!userAuth) return;
+
+    setUser(JSON.parse(userAuth));
+  };
+
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={getUserAuth}
+        onFinish={() => setIsReady(true)}
+        onError={console.warn}
+      />
+    );
+  }
   return (
     <>
       <AuthContext.Provider value={{ user, setUser }}>
