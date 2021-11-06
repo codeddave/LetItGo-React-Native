@@ -8,6 +8,7 @@ import AppForm from "../components/AppForm";
 import { logIn } from "../api/auth";
 import { useState } from "react/cjs/react.development";
 import { AuthContext } from "../components/context/authContext";
+import { saveuserAuthToStore } from "../utility/storage";
 
 const loginValidationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -29,7 +30,7 @@ const LoginScreen = () => {
           if (!response.ok) return setLoginFailed(true);
           setLoginFailed(false);
           setUser(response.data);
-          console.log(response.data);
+          saveuserAuthToStore(response.data);
         }}
         validationSchema={loginValidationSchema}
       >
