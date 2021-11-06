@@ -51,18 +51,6 @@ export default function App() {
     requestPermission();
   }, []);
 
-  const netInfo = useNetInfo();
-
-  const demo = async () => {
-    try {
-      await AsyncStorage.setItem("person", JSON.stringify({ id: 12 }));
-      const value = await AsyncStorage.getItem("person");
-      const person = JSON.parse(value);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const getUserAuth = async () => {
     const userAuth = await getuserAuthFromStore();
     console.log(userAuth);
