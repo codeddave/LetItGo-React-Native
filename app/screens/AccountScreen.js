@@ -6,6 +6,7 @@ import colors from "../config/colors";
 
 import Icon from "../components/Icon";
 import { AuthContext } from "../components/context/authContext";
+import useAuth from "../components/hooks/useAuth";
 
 const stuff = [
   {
@@ -28,7 +29,7 @@ const stuff = [
 ];
 
 function AccountScreen({ navigation }) {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useAuth();
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
@@ -60,6 +61,7 @@ function AccountScreen({ navigation }) {
       <View style={styles.container}>
         <ListItem
           title="Log Out"
+          onPress={() => logOut()}
           IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
         />
       </View>
