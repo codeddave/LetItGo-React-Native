@@ -7,54 +7,71 @@ import * as Yup from "yup";
 import AppForm from "../components/AppForm";
 import { useState } from "react/cjs/react.development";
 import useAuth from "../components/hooks/useAuth";
+import AppActivityIndicator from "../components/AppActivityIndicator";
+import { logIn } from "../api/auth";
 
 const loginValidationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().label("Password"),
 });
 const LoginScreen = () => {
-  const { logIn } = useAuth;
+  const { logIn: logInAuth } = useAuth();
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
   return (
-    <View style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/let-it-go.jpg")} />
-      <Text style={styles.text}>Let It Go!</Text>
-      <AppForm
-        initialValues={{ email: "", password: "" }}
-        onSubmit={async (values /* {resetForm} */) => {
-          /* resetForm() */
+    <View>
+      {<AppActivityIndicator visible={isLoginLoading} />}
 
-          const response = await logIn(values);
-          if (!response.ok) return setLoginFailed(true);
-          setLoginFailed(false);
-          logiIn(response.data);
-        }}
-        validationSchema={loginValidationSchema}
-      >
-        {loginFailed ? (
-          <ErrorMessage error="Invalid email and/or password" />
-        ) : null}
+      <View style={styles.container}>
+        <Image
+          style={styles.logo}
+          source={require("../assets/let-it-go.jpg")}
+        />
+        <Text style={styles.text}>Let It Go!</Text>
+        <AppForm
+          initialValues={{ email: "", password: "" }}
+          onSubmit={async (values /* {resetForm} */) => {
+            /* resetForm() */
+            setIsLoginLoading(true);
+            const response = await logIn(values);
 
-        <AppFormField
-          name="email"
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="email"
-          placeholder="Email"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-        />
-        <AppFormField
-          name="password"
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="lock"
-          placeholder="Password"
-          secureTextEntry
-          textContentType="password"
-        />
-        <SubmitButton title="Log In" />
-      </AppForm>
+            if (!response.ok) {
+              setLoginFailed(true);
+              setIsLoginLoading(false);
+              return;
+            }
+            setLoginFailed(false);
+            setIsLoginLoading(false);
+            logInAuth(response.data);
+            console.log(response);
+          }}
+          validationSchema={loginValidationSchema}
+        >
+          {loginFailed ? (
+            <ErrorMessage error="Invalid email and/or password" />
+          ) : null}
+
+          <AppFormField
+            name="email"
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon="email"
+            placeholder="Email"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+          />
+          <AppFormField
+            name="password"
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon="lock"
+            placeholder="Password"
+            secureTextEntry
+            textContentType="password"
+          />
+          <SubmitButton title="Log In" />
+        </AppForm>
+      </View>
     </View>
   );
 };
