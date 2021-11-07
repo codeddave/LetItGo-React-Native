@@ -5,17 +5,15 @@ import AppFormField from "../components/AppFormField";
 import ErrorMessage from "../components/ErrorMessage";
 import * as Yup from "yup";
 import AppForm from "../components/AppForm";
-import { logIn } from "../api/auth";
 import { useState } from "react/cjs/react.development";
-import { AuthContext } from "../components/context/authContext";
-import { saveuserAuthToStore } from "../utility/storage";
+import useAuth from "../components/hooks/useAuth";
 
 const loginValidationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().label("Password"),
 });
 const LoginScreen = () => {
-  const { setUser } = useContext(AuthContext);
+  const { logIn } = useAuth;
   const [loginFailed, setLoginFailed] = useState(false);
   return (
     <View style={styles.container}>
@@ -29,8 +27,7 @@ const LoginScreen = () => {
           const response = await logIn(values);
           if (!response.ok) return setLoginFailed(true);
           setLoginFailed(false);
-          setUser(response.data);
-          saveuserAuthToStore(response.data);
+          logiIn(response.data);
         }}
         validationSchema={loginValidationSchema}
       >

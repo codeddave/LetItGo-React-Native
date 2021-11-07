@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { View, Text } from "react-native";
+import { useContext } from "react";
+import { removeuserAuthFromStore } from "../../utility/storage";
 import { AuthContext } from "../context/authContext";
 
 const useAuth = () => {
@@ -7,12 +7,18 @@ const useAuth = () => {
 
   const logOut = () => {
     setUser(null);
+    removeuserAuthFromStore();
+  };
+  const login = (userData) => {
+    setUser(userData);
+    saveuserAuthToStore(userData);
   };
 
   return {
     user,
     setUser,
     logOut,
+    login,
   };
 };
 
