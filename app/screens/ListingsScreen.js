@@ -56,30 +56,32 @@ function ListingsScreen({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.screen}>
-      {error ? (
-        <>
-          <Text>Couldn't load listings, Please try again.</Text>
-          <AppButton title="Retry" onPress={getListings} />
-        </>
-      ) : (
-        <>
-          <AppActivityIndicator visible={isLoading} />
-          <FlatList
-            data={listings}
-            keyExtractor={(listing) => listing.id.toString()}
-            renderItem={({ item }) => (
-              <Card
-                title={item.title}
-                subTitle={"$" + item.price}
-                image={item.image}
-                onPress={() => navigation.navigate("ListingsDetails", item)}
-              />
-            )}
-          />
-        </>
-      )}
-    </View>
+    <>
+      <AppActivityIndicator visible={isLoading} />
+      <View style={styles.screen}>
+        {error ? (
+          <>
+            <Text>Couldn't load listings, Please try again.</Text>
+            <AppButton title="Retry" onPress={getListings} />
+          </>
+        ) : (
+          <>
+            <FlatList
+              data={listings}
+              keyExtractor={(listing) => listing.id.toString()}
+              renderItem={({ item }) => (
+                <Card
+                  title={item.title}
+                  subTitle={"$" + item.price}
+                  image={item.image}
+                  onPress={() => navigation.navigate("ListingsDetails", item)}
+                />
+              )}
+            />
+          </>
+        )}
+      </View>
+    </>
   );
 }
 
