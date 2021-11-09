@@ -19,6 +19,7 @@ const AppNavigator = () => {
           tabBarIcon: ({ size, color }) => (
             <MaterialCommunityIcons name="home" size={size} color={color} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -30,6 +31,7 @@ const AppNavigator = () => {
               onPress={() => navigation.navigate("ListingsEdit")}
             />
           ),
+          headerShown: false,
           tabBarIcon: ({ size, color }) => (
             <MaterialCommunityIcons
               name="plus-circle"
@@ -40,12 +42,13 @@ const AppNavigator = () => {
         })}
       />
       <Tab.Screen
-        name="Account"
+        name=" Account"
         component={AccountNavigator}
         options={{
           tabBarIcon: ({ size, color }) => (
             <MaterialCommunityIcons name="account" size={size} color={color} />
           ),
+          headerShown: false,
         }}
       />
     </Tab.Navigator>
