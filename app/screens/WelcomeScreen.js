@@ -1,6 +1,8 @@
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
 import AppButton from "../components/AppButton";
+
 function WelcomScreen({ navigation }) {
   return (
     <ImageBackground
@@ -18,7 +20,11 @@ function WelcomScreen({ navigation }) {
         color="primary"
         onPress={() => navigation.navigate("Login")}
       />
-      <AppButton title="Register" color="secondary" />
+      <AppButton
+        title="Register"
+        color="secondary"
+        onPress={() => navigation.navigate("Register")}
+      />
     </ImageBackground>
   );
 }
