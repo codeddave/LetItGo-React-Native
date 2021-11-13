@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import AppForm from "../components/AppForm";
 import useAuth from "../components/hooks/useAuth";
 import AppActivityIndicator from "../components/AppActivityIndicator";
-import { logIn } from "../api/auth";
+import { register } from "../api/auth";
 import SubmitButton from "../components/SubmitButton";
 
 const RegisterValidationSchema = Yup.object().shape({
@@ -14,12 +14,12 @@ const RegisterValidationSchema = Yup.object().shape({
   password: Yup.string().required().label("Password"),
 });
 const RegisterScreen = () => {
-  const { logIn: logInAuth } = useAuth();
-  const [isLoginLoading, setIsLoginLoading] = useState(false);
-  const [loginFailed, setLoginFailed] = useState(false);
+  const { register: registerAuth } = useAuth();
+  const [isRegisterLoading, setIsRegisterLoading] = useState(false);
+  const [registerFailed, setRegisterFailed] = useState(false);
   return (
     <View>
-      {<AppActivityIndicator visible={isLoginLoading} />}
+      {<AppActivityIndicator visible={isRegisterLoading} />}
 
       <View style={styles.container}>
         <Image
@@ -31,22 +31,22 @@ const RegisterScreen = () => {
           initialValues={{ email: "", password: "" }}
           onSubmit={async (values /* {resetForm} */) => {
             /* resetForm() */
-            setIsLoginLoading(true);
-            const response = await logIn(values);
+            setIsRegisterLoading(true);
+            const response = await register(values);
 
             if (!response.ok) {
-              setLoginFailed(true);
-              setIsLoginLoading(false);
+              setRegisterFailed(true);
+              setIsRegisterLoading(false);
               return;
             }
-            setLoginFailed(false);
-            setIsLoginLoading(false);
-            logInAuth(response.data);
+            setRegisterFailed(false);
+            setIsRegisterLoading(false);
+            registerAuth(response.data);
             console.log(response);
           }}
           validationSchema={RegisterValidationSchema}
         >
-          {loginFailed ? (
+          {registerFailed ? (
             <ErrorMessage error="Invalid email and/or password" />
           ) : null}
           <AppFormField
@@ -95,6 +95,12 @@ const styles = StyleSheet.create({
     height: 180,
     alignSelf: "center",
     marginTop: 80,
+  },
+  text: {
+    fontSize: 17,
+    marginBottom: 30,
+    alignSelf: "center",
+    fontStyle: "italic",
   },
 });
 
