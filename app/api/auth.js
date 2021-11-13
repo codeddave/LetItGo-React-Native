@@ -6,3 +6,7 @@ const apiClient = create({
 export const logIn = async (loginData) => {
   return apiClient.post("/user/signin", loginData);
 };
+
+export const register = async (registerData) => {
+  return apiClient.post("/user/signup", registerData);
+};

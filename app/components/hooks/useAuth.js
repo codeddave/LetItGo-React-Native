@@ -16,12 +16,16 @@ const useAuth = () => {
     setUser(userData);
     saveuserAuthToStore(userData);
   };
-
+  const register = (userData) => {
+    setUser(userData);
+    saveuserAuthToStore(userData);
+  };
   return {
     user,
     setUser,
     logOut,
     logIn,
+    register,
   };
 };
 
