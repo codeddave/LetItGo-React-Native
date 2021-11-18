@@ -2,9 +2,9 @@ import * as SecureStore from "expo-secure-store";
 
 const key = "userAuth";
 
-export const saveuserAuthToStore = async (userAuth) => {
+export const saveuserAuthToStore = async (user) => {
   try {
-    const item = JSON.stringify(userAuth);
+    const item = JSON.stringify(user);
     await SecureStore.setItemAsync(key, item);
   } catch (error) {
     console.log("error getting auth token", error);

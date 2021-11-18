@@ -47,7 +47,8 @@ const ListingEditScreen = () => {
     const response = await addListings(
       {
         ...values,
-        image: values.image[0],
+        category: values.category.value,
+        images: values.images[0],
       },
       unUploadProgress
     );
@@ -74,12 +75,12 @@ const ListingEditScreen = () => {
           price: "",
           description: "",
           category: "jljlb",
-          image: [],
+          images: [],
         }}
         validationSchema={listingEditValidationSchema}
         onSubmit={handleSubmit}
       >
-        <FormImagePicker name="image" />
+        <FormImagePicker name="images" />
         <AppFormField name="title" maxLength={255} placeholder="Title" />
         <AppFormField
           keyboardType="numeric"

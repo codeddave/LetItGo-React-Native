@@ -1,6 +1,6 @@
 import client from "./client";
 
-const endpoint = "/products";
+const endpoint = "/listings";
 export const getListings = () => client.get(endpoint);
 
 export const addListings = (listing, onUploadProgress) =>

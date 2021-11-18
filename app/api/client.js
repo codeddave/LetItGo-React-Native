@@ -1,9 +1,12 @@
 import { create } from "apisauce";
 import cache from "../utility/cache";
-const apiClient = create({
+/* const apiClient = create({
   baseURL: "https://fakestoreapi.com",
-});
+}); */
 
+const apiClient = create({
+  baseURL: "http://localhost:5500",
+});
 const get = apiClient.get;
 
 apiClient.get = async (url, params, axiosConfig) => {

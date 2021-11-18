@@ -4,6 +4,7 @@ import {
   saveuserAuthToStore,
 } from "../../utility/storage";
 import { AuthContext } from "../context/authContext";
+import decode from "jwt-decode";
 
 const useAuth = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -13,8 +14,10 @@ const useAuth = () => {
     removeuserAuthFromStore();
   };
   const logIn = (userData) => {
-    setUser(userData);
-    saveuserAuthToStore(userData);
+    const user = decode(userData);
+
+    setUser(user);
+    saveuserAuthToStore(user);
   };
   const register = (userData) => {
     setUser(userData);

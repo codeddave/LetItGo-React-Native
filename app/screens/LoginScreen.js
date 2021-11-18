@@ -33,7 +33,7 @@ const LoginScreen = () => {
             /* resetForm() */
             setIsLoginLoading(true);
             const response = await logIn(values);
-
+            console.log(response.ok);
             if (!response.ok) {
               setLoginFailed(true);
               setIsLoginLoading(false);
@@ -41,8 +41,7 @@ const LoginScreen = () => {
             }
             setLoginFailed(false);
             setIsLoginLoading(false);
-            logInAuth(response.data);
-            console.log(response);
+            logInAuth(response.data.token);
           }}
           validationSchema={loginValidationSchema}
         >

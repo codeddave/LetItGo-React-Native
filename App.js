@@ -22,15 +22,9 @@ import navigationTheme from "./app/navigation/navigationTheme";
 import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 import AppNavigator from "./app/navigation/AppNavigator";
 
-import { AsyncStorage } from "@react-native-async-storage/async-storage";
 import OfflineStatus from "./app/components/OfflineStatus";
-import LoginScreen from "./app/screens/LoginScreen";
-import WelcomScreen from "./app/screens/WelcomeScreen";
 import AuthNavigator from "./app/navigation/AuthNavigator";
-import {
-  AuthContext,
-  AuthContextProvider,
-} from "./app/components/context/authContext";
+import { AuthContext } from "./app/components/context/authContext";
 import { getuserAuthFromStore } from "./app/utility/storage";
 import AppLoading from "expo-app-loading";
 export default function App() {
@@ -49,14 +43,16 @@ export default function App() {
   };
   useEffect(() => {
     requestPermission();
+    console.log(user);
   }, []);
 
   const getUserAuth = async () => {
     const userAuth = await getuserAuthFromStore();
-    console.log(userAuth);
+
     if (!userAuth) return;
 
     setUser(JSON.parse(userAuth));
+    console.log(JSON.parse(userAuth).email);
   };
 
   if (!isReady) {
