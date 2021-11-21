@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import {
   removeuserAuthFromStore,
+  saveAuthTokenToStore,
   saveuserAuthToStore,
 } from "../../utility/storage";
 import { AuthContext } from "../context/authContext";
@@ -13,8 +14,9 @@ const useAuth = () => {
     setUser(null);
     removeuserAuthFromStore();
   };
-  const logIn = (userData) => {
-    const user = decode(userData);
+  const logIn = (token) => {
+    saveAuthTokenToStore(token);
+    const user = decode(token);
 
     setUser(user);
     saveuserAuthToStore(user);
