@@ -14,6 +14,7 @@ import { getListings } from "../api/listings";
 import AppButton from "../components/AppButton";
 import AppActivityIndicator from "../components/AppActivityIndicator";
 import useApi from "../components/hooks/useApi";
+import base64 from "react-native-base64";
 
 const listings = [
   {
@@ -44,17 +45,12 @@ const listings = [
  } */
 ];
 function ListingsScreen({ navigation }) {
-  const {
-    data: listings,
-    error,
-    isLoading,
-    request: loadListings,
-  } = useApi(getListings);
+  const { data, error, isLoading, request: loadListings } = useApi(getListings);
 
   useEffect(() => {
     loadListings();
   }, []);
-
+  const listings = data.listings;
   return (
     <>
       <AppActivityIndicator visible={isLoading} />
@@ -68,12 +64,12 @@ function ListingsScreen({ navigation }) {
           <>
             <FlatList
               data={listings}
-              keyExtractor={(listing) => listing.id.toString()}
+              keyExtractor={(listing) => listing._id.toString()}
               renderItem={({ item }) => (
                 <Card
                   title={item.title}
                   subTitle={"$" + item.price}
-                  image={item.image}
+                  image={item.images[0]}
                   onPress={() => navigation.navigate("ListingsDetails", item)}
                 />
               )}
