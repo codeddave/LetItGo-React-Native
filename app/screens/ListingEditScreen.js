@@ -9,7 +9,10 @@ import CategoryPickerItem from "../components/CategoryPickerItem";
 import FormImagePicker from "../components/FormImagePicker";
 import useApi from "../components/hooks/useApi";
 import { addListings } from "../api/listings";
+import uuid from "react-native-uuid";
 import UploadScreen from "./UploadScreen";
+import base64 from "react-native-base64";
+import firebase from "../firebase/config";
 
 const listingEditValidationSchema = Yup.object().shape({
   title: Yup.string().required().label("Title"),
@@ -41,22 +44,66 @@ const ListingEditScreen = () => {
   const unUploadProgress = (prog) => {
     setProgress(prog);
   };
+  async function uploadImageAsync(uri) {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+
+    const ref = firebase.storage().ref().child(uuid.v4());
+    const snapshot = await ref.put(blob);
+
+    // We're done with the blob, close and release it
+    blob.close();
+
+    return await snapshot.ref.getDownloadURL();
+  }
   const handleSubmit = async (values, { resetForm }) => {
     setProgress(0);
     setUpdloadVisible(true);
-    const response = await addListings(
-      {
-        ...values,
-        category: values.category.value,
-        images: values.images[0],
-      },
-      unUploadProgress
-    );
 
-    if (!response.ok) {
-      setUpdloadVisible(false);
-      return alert("something went wrong");
+    const rep = await uploadImageAsync(values.images[0]);
+    console.log(rep);
+
+    /*  const fileExtension = values.images[0].split(".").pop();
+    const uuidd = uuid.v4();
+    console.log(uuidd, "thus is uuid");
+    const fileName = `${uuidd}.${fileExtension}`;
+    try {
+      const uploadTaskRef = firebase.storage().ref(`images/${fileName}`);
+      uploadTaskRef.put(values.images[0]);
+    } catch (error) {
+      console.log(error);
     }
+ */
+
+    if (rep) {
+      const response = await addListings(
+        {
+          ...values,
+          category: values.category.value,
+
+          images: rep,
+        },
+        unUploadProgress
+      );
+      //console.log("hello", base64.encode(values.images[0]));
+
+      if (!response.ok) {
+        setUpdloadVisible(false);
+        return alert("something went wrong");
+      }
+    }
+
     resetForm();
 
     //console.log(progress);
