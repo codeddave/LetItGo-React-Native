@@ -10,7 +10,7 @@ import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 const Tab = createBottomTabNavigator();
 const AppNavigator = () => {
-  const registerForPushNotifications = () => {
+  const registerForPushNotifications = async () => {
     try {
       const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
 
