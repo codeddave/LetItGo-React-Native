@@ -21,15 +21,22 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import navigationTheme from "./app/navigation/navigationTheme";
 import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 import AppNavigator from "./app/navigation/AppNavigator";
+import decode from "jwt-decode";
 
 import OfflineStatus from "./app/components/OfflineStatus";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import { AuthContext } from "./app/components/context/authContext";
-import { getuserAuthFromStore } from "./app/utility/storage";
+import {
+  getAuthTokenFromStore,
+  getuserAuthFromStore,
+} from "./app/utility/storage";
 import AppLoading from "expo-app-loading";
+import useAuth from "./app/components/hooks/useAuth";
+
 export default function App() {
   const [user, setUser] = useState(null);
   const [isReady, setIsReady] = useState(false);
+  const { logOut } = useAuth();
   /*  const [category, setCategory] = useState(categories[0]);
   const [imageUris, setImageUris] = useState([]);
   const [firstName, setFirstName] = useState("");
@@ -47,6 +54,14 @@ export default function App() {
   }, []);
 
   const getUserAuth = async () => {
+    const token = await getAuthTokenFromStore();
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        dispatch(logOut());
+      }
+    }
+
     const userAuth = await getuserAuthFromStore();
 
     if (!userAuth) return;
