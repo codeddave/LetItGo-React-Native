@@ -60,7 +60,9 @@ const ListingEditScreen = () => {
     });
 
     const ref = firebase.storage().ref().child(uuid.v4());
+    console.log(ref);
     const snapshot = await ref.put(blob);
+    console.log(snapshot);
 
     // We're done with the blob, close and release it
     blob.close();
@@ -71,37 +73,20 @@ const ListingEditScreen = () => {
     setProgress(0);
     setUpdloadVisible(true);
 
-    const rep = await uploadImageAsync(values.images[0]);
-    console.log(rep);
+    const response = await addListings(
+      {
+        ...values,
+        category: values.category.value,
 
-    /*  const fileExtension = values.images[0].split(".").pop();
-    const uuidd = uuid.v4();
-    console.log(uuidd, "thus is uuid");
-    const fileName = `${uuidd}.${fileExtension}`;
-    try {
-      const uploadTaskRef = firebase.storage().ref(`images/${fileName}`);
-      uploadTaskRef.put(values.images[0]);
-    } catch (error) {
-      console.log(error);
-    }
- */
+        images: values.images[0],
+      },
+      unUploadProgress
+    );
+    //console.log("hello", base64.encode(values.images[0]));
 
-    if (rep) {
-      const response = await addListings(
-        {
-          ...values,
-          category: values.category.value,
-
-          images: rep,
-        },
-        unUploadProgress
-      );
-      //console.log("hello", base64.encode(values.images[0]));
-
-      if (!response.ok) {
-        setUpdloadVisible(false);
-        return alert("something went wrong");
-      }
+    if (!response.ok) {
+      setUpdloadVisible(false);
+      return alert("something went wrong");
     }
 
     resetForm();

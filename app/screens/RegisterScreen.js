@@ -41,7 +41,7 @@ const RegisterScreen = () => {
             }
             setRegisterFailed(false);
             setIsRegisterLoading(false);
-            registerAuth(response.data);
+            registerAuth(response.data.token);
             console.log(response);
           }}
           validationSchema={RegisterValidationSchema}
