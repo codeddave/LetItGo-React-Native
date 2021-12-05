@@ -9,8 +9,10 @@ import NewListingButton from "./NewListingButton";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import { sendPushNotificationToken } from "../api/expoPushnotificationToken";
+import useAuth from "../components/hooks/useAuth";
 const Tab = createBottomTabNavigator();
 const AppNavigator = () => {
+  const { user } = useAuth();
   const registerForPushNotifications = async () => {
     let token;
     const { status: existingStatus } =
@@ -25,7 +27,7 @@ const AppNavigator = () => {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    sendPushNotificationToken(token);
+    sendPushNotificationToken(token, user?.email);
     console.log(token);
   };
   useEffect(() => {
