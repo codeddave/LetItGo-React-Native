@@ -8,6 +8,7 @@ import ListingEditScreen from "../screens/ListingEditScreen";
 import NewListingButton from "./NewListingButton";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
+import { sendPushNotificationToken } from "../api/expoPushnotificationToken";
 const Tab = createBottomTabNavigator();
 const AppNavigator = () => {
   const registerForPushNotifications = async () => {
@@ -24,6 +25,7 @@ const AppNavigator = () => {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
+    sendPushNotificationToken(token);
     console.log(token);
   };
   useEffect(() => {
