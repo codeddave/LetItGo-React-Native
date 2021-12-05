@@ -4,9 +4,10 @@ import { create } from "apisauce";
 });
  */
 const apiClient = create({
-  baseURL: "http://localhost:5500",
+  baseURL: "https://let-itgo.herokuapp.com",
 });
 export const logIn = async (loginData) => {
+  console.log(loginData);
   return apiClient.post("/user/signin", loginData);
 };
 
