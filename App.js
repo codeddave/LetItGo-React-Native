@@ -60,6 +60,7 @@ export default function App() {
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         dispatch(logOut());
       }
+      return;
     }
 
     const userAuth = await getuserAuthFromStore();
