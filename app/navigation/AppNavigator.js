@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FeedNavigator from "./FeedNavigator";
@@ -11,16 +11,24 @@ import * as Permissions from "expo-permissions";
 const Tab = createBottomTabNavigator();
 const AppNavigator = () => {
   const registerForPushNotifications = async () => {
-    try {
-      const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-
-      if (!permission.granted) return;
-      const token = await Notifications.getExpoPushTokenAsync();
-      console.log(token);
-    } catch (error) {
-      console.log("Error, getting a push token", error);
+    let token;
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
     }
+    if (finalStatus !== "granted") {
+      alert("Failed to get push token for push notification!");
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
   };
+  useEffect(() => {
+    registerForPushNotifications();
+  }, []);
   return (
     <Tab.Navigator>
       <Tab.Screen
