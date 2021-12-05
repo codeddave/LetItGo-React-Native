@@ -43,3 +43,10 @@ export const removeuserAuthFromStore = async () => {
     console.log("error removing authToken", error);
   }
 };
+export const removeuserTokenFromStore = async () => {
+  try {
+    await SecureStore.deleteItemAsync(tokenKey);
+  } catch (error) {
+    console.log("error removing Token", error);
+  }
+};
