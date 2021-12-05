@@ -20,7 +20,7 @@ export default function Card({ title, subTitle, image, onPress }) {
         /> */}
         <Image
           style={styles.image}
-          source={{ uri: image }}
+          source={{ uri: `data:image/jpeg;base64, ${image}` }}
           resizeMode="cover"
         />
         <View style={styles.content}>
