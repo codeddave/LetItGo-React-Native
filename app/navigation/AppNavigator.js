@@ -8,7 +8,7 @@ import ListingEditScreen from "../screens/ListingEditScreen";
 import NewListingButton from "./NewListingButton";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
-import { sendPushNotificationToken } from "../api/expoPushnotificationToken";
+import { sendPushNotificationToken } from "../api/expoPushNotificationToken";
 import useAuth from "../components/hooks/useAuth";
 const Tab = createBottomTabNavigator();
 const AppNavigator = () => {

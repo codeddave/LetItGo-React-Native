@@ -29,6 +29,8 @@ import { AuthContext } from "./app/components/context/authContext";
 import {
   getAuthTokenFromStore,
   getuserAuthFromStore,
+  removeuserAuthFromStore,
+  removeuserTokenFromStore,
 } from "./app/utility/storage";
 import AppLoading from "expo-app-loading";
 import useAuth from "./app/components/hooks/useAuth";
@@ -36,7 +38,7 @@ import useAuth from "./app/components/hooks/useAuth";
 export default function App() {
   const [user, setUser] = useState(null);
   const [isReady, setIsReady] = useState(false);
-  const { logOut } = useAuth();
+
   /*  const [category, setCategory] = useState(categories[0]);
   const [imageUris, setImageUris] = useState([]);
   const [firstName, setFirstName] = useState("");
@@ -58,7 +60,10 @@ export default function App() {
     if (token) {
       const decodedToken = decode(token);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
-        dispatch(logOut());
+        setUser(null);
+        removeuserAuthFromStore();
+        removeuserTokenFromStore();
+        console.log("hey there");
       }
       return;
     }
