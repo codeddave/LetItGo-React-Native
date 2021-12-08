@@ -33,7 +33,7 @@ const LoginScreen = () => {
             /* resetForm() */
             setIsLoginLoading(true);
             const response = await logIn(values);
-            console.log(response.ok);
+            console.log(response);
             if (!response.ok) {
               setLoginFailed(true);
               setIsLoginLoading(false);
