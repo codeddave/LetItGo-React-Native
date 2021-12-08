@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { sendPushNotification } from "../api/expoPushNotificationToken";
 import ListItem from "../components/ListItem";
 function ListingDetailsScreen({ route }) {
   const listing = route.params;
-  console.log(listing.image);
+  useEffect(() => {
+    sendPushNotification("hey there otu!", listing.creator);
+    console.log(listing.creator);
+  }, []);
   return (
     <>
       <View>
