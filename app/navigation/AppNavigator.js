@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FeedNavigator from "./FeedNavigator";
@@ -11,8 +11,18 @@ import * as Permissions from "expo-permissions";
 import { sendPushNotificationToken } from "../api/expoPushNotificationToken";
 import useAuth from "../components/hooks/useAuth";
 const Tab = createBottomTabNavigator();
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 const AppNavigator = () => {
   const { user } = useAuth();
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
   const registerForPushNotifications = async () => {
     let token;
     const { status: existingStatus } =
@@ -32,6 +42,18 @@ const AppNavigator = () => {
   };
   useEffect(() => {
     registerForPushNotifications();
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
+    console.log(notification, notification?.request?.content?.body, "yuuuuu");
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      // Notifications.removeNotificationSubscription(responseListener.current);
+    };
   }, []);
   return (
     <Tab.Navigator>
