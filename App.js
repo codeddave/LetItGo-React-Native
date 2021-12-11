@@ -8,11 +8,6 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
-import {
-  useDimensions,
-  useDeviceOrientation,
-} from "@react-native-community/hooks";
-
 import * as ImagePicker from "expo-image-picker";
 import { NavigationContainer } from "@react-navigation/native";
 import navigationTheme from "./app/navigation/navigationTheme";
@@ -29,6 +24,7 @@ import {
   removeuserTokenFromStore,
 } from "./app/utility/storage";
 import AppLoading from "expo-app-loading";
+import { navigationRef } from "./app/navigation/rootNavigation";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -85,7 +81,7 @@ export default function App() {
             flex: 1,
           }}
         >
-          <NavigationContainer theme={navigationTheme}>
+          <NavigationContainer ref={navigationRef} theme={navigationTheme}>
             {user ? <AppNavigator /> : <AuthNavigator />}
           </NavigationContainer>
         </View>
