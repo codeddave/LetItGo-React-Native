@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import * as Notifications from "expo-notifications";
-
 import { sendPushNotificationToken } from "../../api/expoPushNotificationToken";
-
-import navigation from "../../navigation/rootNavigation";
 import useAuth from "./useAuth";
+
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
