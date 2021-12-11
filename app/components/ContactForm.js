@@ -4,12 +4,17 @@ import AppForm from "./AppForm";
 import AppFormField from "./AppFormField";
 import SubmitButton from "./SubmitButton";
 import * as Yup from "yup";
+import { sendPushNotification } from "../api/expoPushNotificationToken";
 
 const ContactFormSchema = Yup.object().shape({
   message: Yup.string().required("Please  type a message to seller"),
 });
 const ContactForm = ({ listingCreator }) => {
-  const handleSubmit = (values) => {};
+  const handleSubmit = async (values) => {
+    const response = await sendPushNotification(values.message, listingCreator);
+
+    if (!response.ok) return;
+  };
   return (
     <View>
       <AppForm
@@ -19,7 +24,11 @@ const ContactForm = ({ listingCreator }) => {
         validationSchema={ContactFormSchema}
         onSubmit={handleSubmit}
       >
-        <AppFormField />
+        <AppFormField
+          name="message"
+          multiline
+          placeholder="Enter a message..."
+        />
         <View>
           <SubmitButton title="Contact Seller" />
         </View>
