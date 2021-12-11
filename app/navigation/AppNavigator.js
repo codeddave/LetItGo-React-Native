@@ -10,6 +10,7 @@ import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import { sendPushNotificationToken } from "../api/expoPushNotificationToken";
 import useAuth from "../components/hooks/useAuth";
+import navigation from "../navigation/rootNavigation";
 const Tab = createBottomTabNavigator();
 
 Notifications.setNotificationHandler({
@@ -36,15 +37,20 @@ const AppNavigator = () => {
       alert("Failed to get push token for push notification!");
       return;
     }
+
     token = (await Notifications.getExpoPushTokenAsync()).data;
     sendPushNotificationToken(token, user?.email);
     console.log(token);
   };
   useEffect(() => {
     registerForPushNotifications();
+
     notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        setNotification(notification);
+      Notifications.addNotificationReceivedListener((notifications) => {
+        setNotification(notifications);
+        console.log(notifications);
+        alert(notifications);
+        navigation.navigate(" Account");
       });
     console.log(notification, notification?.request?.content?.body, "yuuuuu");
 
