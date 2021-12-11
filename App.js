@@ -33,11 +33,6 @@ import AppLoading from "expo-app-loading";
 export default function App() {
   const [user, setUser] = useState(null);
   const [isReady, setIsReady] = useState(false);
-
-  /*  const [category, setCategory] = useState(categories[0]);
-  const [imageUris, setImageUris] = useState([]);
-  const [firstName, setFirstName] = useState("");
-  const { landscape } = useDeviceOrientation(); */
   const requestPermission = async () => {
     const result = await ImagePicker.requestCameraPermissionsAsync();
 
