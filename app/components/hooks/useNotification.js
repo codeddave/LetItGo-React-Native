@@ -4,7 +4,7 @@ import * as Notifications from "expo-notifications";
 import { sendPushNotificationToken } from "../../api/expoPushNotificationToken";
 
 import navigation from "../../navigation/rootNavigation";
-
+import useAuth from "./useAuth";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -13,6 +13,8 @@ Notifications.setNotificationHandler({
   }),
 });
 function useNotification(onNotificationRecieved, onNotificationClicked) {
+  const { user } = useAuth();
+
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
