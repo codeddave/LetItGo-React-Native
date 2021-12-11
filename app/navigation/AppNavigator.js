@@ -24,6 +24,8 @@ const AppNavigator = () => {
   const { user } = useAuth();
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
+  const responseListener = useRef();
+
   const registerForPushNotifications = async () => {
     let token;
     const { status: existingStatus } =
@@ -48,9 +50,13 @@ const AppNavigator = () => {
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notifications) => {
         setNotification(notifications);
-        console.log(notifications);
+        console.log(notifications, "this is the notif");
         alert(notifications);
-        navigation.navigate(" Account");
+        navigation.navigate(" Account" /*  { screen: 'Profile' } */);
+      });
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((notifications) => {
+        navigation.navigate(" Account" /*  { screen: 'Profile' } */);
       });
     console.log(notification, notification?.request?.content?.body, "yuuuuu");
 
@@ -58,7 +64,7 @@ const AppNavigator = () => {
       Notifications.removeNotificationSubscription(
         notificationListener.current
       );
-      // Notifications.removeNotificationSubscription(responseListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
   return (
