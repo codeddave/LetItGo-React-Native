@@ -14,12 +14,8 @@ import {
 } from "@react-native-community/hooks";
 
 import * as ImagePicker from "expo-image-picker";
-import * as Permissions from "expo-permissions";
-
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-
+import { NavigationContainer } from "@react-navigation/native";
 import navigationTheme from "./app/navigation/navigationTheme";
-import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 import AppNavigator from "./app/navigation/AppNavigator";
 import decode from "jwt-decode";
 
@@ -33,7 +29,6 @@ import {
   removeuserTokenFromStore,
 } from "./app/utility/storage";
 import AppLoading from "expo-app-loading";
-import useAuth from "./app/components/hooks/useAuth";
 
 export default function App() {
   const [user, setUser] = useState(null);
