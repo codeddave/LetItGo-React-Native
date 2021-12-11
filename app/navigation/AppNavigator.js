@@ -6,7 +6,6 @@ import AccountNavigator from "./AccountNavigator";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ListingEditScreen from "../screens/ListingEditScreen";
 import NewListingButton from "./NewListingButton";
-import useAuth from "../components/hooks/useAuth";
 import useNotification from "../components/hooks/useNotification";
 import navigation from "../navigation/rootNavigation";
 
