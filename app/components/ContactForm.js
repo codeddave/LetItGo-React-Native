@@ -10,8 +10,8 @@ const ContactFormSchema = Yup.object().shape({
   message: Yup.string().required("Please  type a message to seller"),
 });
 const ContactForm = ({ listingCreator }) => {
-  Keyboard.dismiss();
   const handleSubmit = async (values) => {
+    Keyboard.dismiss();
     const response = await sendPushNotification(values.message, listingCreator);
 
     if (!response.ok) return alert("something went wrong");

@@ -38,24 +38,25 @@ export default function App() {
   };
   useEffect(() => {
     requestPermission();
-    console.log(user);
+    //console.log(user);
   }, []);
 
   const getUserAuth = async () => {
     const token = await getAuthTokenFromStore();
+    console.log(token);
     if (token) {
       const decodedToken = decode(token);
+      console.log(decodedToken);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         setUser(null);
         removeuserAuthFromStore();
         removeuserTokenFromStore();
         console.log("hey there");
+        return;
       }
-      return;
     }
-
     const userAuth = await getuserAuthFromStore();
-
+    console.log(userAuth);
     if (!userAuth) return;
 
     setUser(JSON.parse(userAuth));
