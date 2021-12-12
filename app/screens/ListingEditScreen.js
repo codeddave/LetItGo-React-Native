@@ -7,12 +7,8 @@ import AppFormField from "../components/AppFormField";
 import SubmitButton from "../components/SubmitButton";
 import CategoryPickerItem from "../components/CategoryPickerItem";
 import FormImagePicker from "../components/FormImagePicker";
-import useApi from "../components/hooks/useApi";
 import { addListings } from "../api/listings";
-import uuid from "react-native-uuid";
 import UploadScreen from "./UploadScreen";
-import base64 from "react-native-base64";
-import firebase from "../firebase/config";
 
 const listingEditValidationSchema = Yup.object().shape({
   title: Yup.string().required().label("Title"),
@@ -44,7 +40,7 @@ const ListingEditScreen = () => {
   const unUploadProgress = (prog) => {
     setProgress(prog);
   };
-  async function uploadImageAsync(uri) {
+  /*   async function uploadImageAsync(uri) {
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = function () {
@@ -68,7 +64,7 @@ const ListingEditScreen = () => {
     blob.close();
 
     return await snapshot.ref.getDownloadURL();
-  }
+  } */
   const handleSubmit = async (values, { resetForm }) => {
     setProgress(0);
     setUpdloadVisible(true);
