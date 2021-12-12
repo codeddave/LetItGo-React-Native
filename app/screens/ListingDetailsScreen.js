@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { sendPushNotification } from "../api/expoPushNotificationToken";
+import ContactForm from "../components/ContactForm";
 import ListItem from "../components/ListItem";
 function ListingDetailsScreen({ route }) {
   const listing = route.params;
@@ -28,6 +29,7 @@ function ListingDetailsScreen({ route }) {
             image={require("../assets/chair.jpg")}
           />
         </View>
+        <ContactForm />
       </View>
     </>
   );
