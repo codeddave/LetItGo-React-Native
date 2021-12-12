@@ -12,10 +12,7 @@ import ContactForm from "../components/ContactForm";
 import ListItem from "../components/ListItem";
 function ListingDetailsScreen({ route }) {
   const listing = route.params;
-  useEffect(() => {
-    sendPushNotification("hey there otu!", listing.creator);
-    console.log(listing.creator);
-  }, []);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -39,7 +36,7 @@ function ListingDetailsScreen({ route }) {
             image={require("../assets/chair.jpg")}
           />
         </View>
-        <ContactForm />
+        <ContactForm listingCreator={listing.creator} />
       </KeyboardAvoidingView>
     </>
   );

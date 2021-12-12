@@ -12,16 +12,7 @@ import navigation from "../navigation/rootNavigation";
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
-  const handleNotificationRecieved = (notifications) => {
-    console.log(notifications, "this is the notif");
-    alert(notifications);
-    navigation.navigate(" Account" /*  { screen: 'Profile' } */);
-  };
-  const handleNotificationClicked = (notifications) => {
-    navigation.navigate(" Account" /*  { screen: 'Profile' } */);
-  };
-
-  useNotification(handleNotificationRecieved, handleNotificationClicked);
+  useNotification();
 
   return (
     <Tab.Navigator>
