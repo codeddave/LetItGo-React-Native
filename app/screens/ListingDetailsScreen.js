@@ -13,7 +13,7 @@ function ListingDetailsScreen({ route }) {
       <View>
         <Image
           style={styles.image}
-          source={{ uri: listing.image }}
+          source={{ uri: listing.images[0] }}
           resizeMode="contain"
         />
 
