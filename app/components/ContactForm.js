@@ -13,7 +13,7 @@ const ContactForm = ({ listingCreator }) => {
   const handleSubmit = async (values) => {
     const response = await sendPushNotification(values.message, listingCreator);
 
-    if (!response.ok) return;
+    if (!response.ok) return alert("something went wrong");
   };
   return (
     <View>
