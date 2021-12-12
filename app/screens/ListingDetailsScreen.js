@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { sendPushNotification } from "../api/expoPushNotificationToken";
 import ContactForm from "../components/ContactForm";
 import ListItem from "../components/ListItem";
@@ -11,7 +18,10 @@ function ListingDetailsScreen({ route }) {
   }, []);
   return (
     <>
-      <View>
+      <KeyboardAvoidingView
+        behavior="position"
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
+      >
         <Image
           style={styles.image}
           source={{ uri: `data:image/jpeg;base64, ${listing.images[0]}` }}
@@ -30,7 +40,7 @@ function ListingDetailsScreen({ route }) {
           />
         </View>
         <ContactForm />
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 }
