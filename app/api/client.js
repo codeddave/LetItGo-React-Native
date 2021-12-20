@@ -5,7 +5,7 @@ import cache from "../utility/cache";
 }); */
 
 const apiClient = create({
-  baseURL: "http://localhost:5500",
+  baseURL: "https://let-itgo.herokuapp.com",
 });
 const get = apiClient.get;
 
