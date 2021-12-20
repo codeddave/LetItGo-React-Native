@@ -5,14 +5,15 @@ import AppButton from "../components/AppButton";
 
 function WelcomScreen({ navigation }) {
   return (
-    <ImageBackground
+    /*     <ImageBackground
       style={styles.background}
-      source={require("../assets/hero-image.jpg")}
-    >
+      source={require("../assets/icon.png")}
+    > */
+    <>
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require("../assets/favicon.png")} />
+        <Image style={styles.logo} source={require("../assets/icon.png")} />
         <Text style={styles.logoText}>
-          You don't need it anymore? Let It Go
+          You don't need something anymore? Let It Go
         </Text>
       </View>
       <AppButton
@@ -25,7 +26,8 @@ function WelcomScreen({ navigation }) {
         color="secondary"
         onPress={() => navigation.navigate("Register")}
       />
-    </ImageBackground>
+    </>
+    /*    </ImageBackground> */
   );
 }
 
@@ -37,7 +39,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   logoContainer: {
-    flex: 1,
     alignItems: "center",
     position: "absolute",
     top: 70,
