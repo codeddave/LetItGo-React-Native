@@ -13,7 +13,7 @@ const loginValidationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().label("Password"),
 });
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const { logIn: logInAuth } = useAuth();
   const [isLoginLoading, setIsLoginLoading] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
@@ -67,6 +67,12 @@ const LoginScreen = () => {
             secureTextEntry
             textContentType="password"
           />
+          <View style={styles.forgot}>
+            <Text onPress={() => navigation.navigate("ForgotPassword")}>
+              {" "}
+              Forgot Password ?
+            </Text>
+          </View>
           <SubmitButton title="Log In" />
         </AppForm>
       </View>
@@ -83,6 +89,9 @@ const styles = StyleSheet.create({
     height: 180,
     alignSelf: "center",
     marginTop: 80,
+  },
+  forgot: {
+    marginTop: 8,
   },
   text: {
     fontSize: 17,
