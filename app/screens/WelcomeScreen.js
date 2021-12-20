@@ -9,11 +9,11 @@ function WelcomScreen({ navigation }) {
       style={styles.background}
       source={require("../assets/icon.png")}
     > */
-    <>
+    <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={require("../assets/icon.png")} />
         <Text style={styles.logoText}>
-          You don't need something anymore? Let It Go
+          You don't need it anymore? Let It Go!
         </Text>
       </View>
       <AppButton
@@ -21,12 +21,14 @@ function WelcomScreen({ navigation }) {
         color="primary"
         onPress={() => navigation.navigate("Login")}
       />
-      <AppButton
-        title="Register"
-        color="secondary"
-        onPress={() => navigation.navigate("Register")}
-      />
-    </>
+      <View style={styles.buttonWrapper}>
+        <AppButton
+          title="Register"
+          color="secondary"
+          onPress={() => navigation.navigate("Register")}
+        />
+      </View>
+    </View>
     /*    </ImageBackground> */
   );
 }
@@ -38,19 +40,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 10,
   },
+  buttonWrapper: {
+    paddingTop: 20,
+    width: "100%",
+  },
+
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+
   logoContainer: {
     alignItems: "center",
-    position: "absolute",
-    top: 70,
+    paddingBottom: 60,
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
   },
 
   logoText: {
-    color: "white",
-    fontWeight: "bold",
+    color: "black",
+    fontStyle: "italic",
+    fontSize: 17,
   },
   registerButton: {
     backgroundColor: "#4ecdc4",
