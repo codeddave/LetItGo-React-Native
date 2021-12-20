@@ -56,7 +56,7 @@ const ForgotPasswordScreen = () => {
             textContentType="emailAddress"
           />
 
-          <SubmitButton title="Log In" />
+          <SubmitButton title="Forgot Password" />
         </AppForm>
       </View>
     </View>
