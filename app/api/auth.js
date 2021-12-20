@@ -14,3 +14,7 @@ export const logIn = async (loginData) => {
 export const register = async (registerData) => {
   return apiClient.post("/user/signup", registerData);
 };
+
+export const forgotPassword = async (password) => {
+  return apiClient.post("/user/forgot-password", { password });
+};
