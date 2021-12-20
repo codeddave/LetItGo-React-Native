@@ -7,18 +7,18 @@ import * as Yup from "yup";
 import AppForm from "../components/AppForm";
 import useAuth from "../components/hooks/useAuth";
 import AppActivityIndicator from "../components/AppActivityIndicator";
-import { logIn } from "../api/auth";
+import { forgotPassword, logIn } from "../api/auth";
 
 const forgotpasswordValidationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
 });
 const ForgotPasswordScreen = () => {
   const { logIn: logInAuth } = useAuth();
-  const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const [isForgotPasswordLoading, setIsForgotPasswordLoading] = useState(false);
   const [forgotPasswordFailed, setForgotPasswordFailed] = useState(false);
   return (
     <View>
-      {<AppActivityIndicator visible={isLoginLoading} />}
+      {<AppActivityIndicator visible={isForgotPasswordLoading} />}
 
       <View style={styles.container}>
         <Image
@@ -30,21 +30,21 @@ const ForgotPasswordScreen = () => {
           initialValues={{ email: "" }}
           onSubmit={async (values /* {resetForm} */) => {
             /* resetForm() */
-            setIsLoginLoading(true);
-            const response = await logIn(values);
+            setIsForgotPasswordLoading(true);
+            const response = await forgotPassword(values.email);
             console.log(response);
             if (!response.ok) {
-              setLoginFailed(true);
-              setIsLoginLoading(false);
+              setForgotPasswordFailed(true);
+              setIsForgotPasswordLoading(false);
               return;
             }
-            setLoginFailed(false);
-            setIsLoginLoading(false);
-            logInAuth(response.data.token);
+            setForgotPasswordFailed(false);
+            setIsForgotPasswordLoading(false);
+            // logInAuth(response.data.token);
           }}
           validationSchema={forgotpasswordValidationSchema}
         >
-          {loginFailed ? <ErrorMessage error="Invalid email" /> : null}
+          {forgotPasswordFailed ? <ErrorMessage error="Invalid email" /> : null}
 
           <AppFormField
             name="email"
