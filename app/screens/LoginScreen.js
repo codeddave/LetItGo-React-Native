@@ -68,7 +68,10 @@ const LoginScreen = ({ navigation }) => {
             textContentType="password"
           />
           <View style={styles.forgot}>
-            <Text onPress={() => navigation.navigate("ForgotPassword")}>
+            <Text
+              style={styles.forgotText}
+              onPress={() => navigation.navigate("ForgotPassword")}
+            >
               {" "}
               Forgot Password ?
             </Text>
@@ -92,6 +95,11 @@ const styles = StyleSheet.create({
   },
   forgot: {
     marginTop: 8,
+    marginBottom: 24,
+    paddingLeft: 6,
+  },
+  forgotText: {
+    fontSize: 16,
   },
   text: {
     fontSize: 17,
