@@ -12,7 +12,7 @@ import { forgotPassword, logIn } from "../api/auth";
 const forgotpasswordValidationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
 });
-const ForgotPasswordScreen = () => {
+const ForgotPasswordScreen = ({ navigation }) => {
   const { logIn: logInAuth } = useAuth();
   const [isForgotPasswordLoading, setIsForgotPasswordLoading] = useState(false);
   const [forgotPasswordFailed, setForgotPasswordFailed] = useState(false);
@@ -40,6 +40,7 @@ const ForgotPasswordScreen = () => {
             }
             setForgotPasswordFailed(false);
             setIsForgotPasswordLoading(false);
+            navigation.navigate("Login");
             // logInAuth(response.data.token);
           }}
           validationSchema={forgotpasswordValidationSchema}
