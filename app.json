@@ -2,6 +2,7 @@
   "expo": {
     "name": "LetItGo",
     "slug": "LetItGo",
+    "owner": "david-adeleye",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./app/assets/icon.png",
@@ -13,11 +14,11 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.codeddave.letitgo",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
