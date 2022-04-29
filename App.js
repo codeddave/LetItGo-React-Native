@@ -38,7 +38,6 @@ export default function App() {
   };
   useEffect(() => {
     requestPermission();
-    //console.log(user);
   }, []);
 
   const getUserAuth = async () => {
@@ -46,21 +45,17 @@ export default function App() {
     console.log(token);
     if (token) {
       const decodedToken = decode(token);
-      console.log(decodedToken);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         setUser(null);
         removeuserAuthFromStore();
         removeuserTokenFromStore();
-        console.log("hey there");
         return;
       }
     }
     const userAuth = await getuserAuthFromStore();
-    console.log(userAuth);
     if (!userAuth) return;
 
     setUser(JSON.parse(userAuth));
-    console.log(JSON.parse(userAuth).email);
   };
 
   if (!isReady) {
@@ -90,11 +85,3 @@ export default function App() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-
-    paddingTop: Platform.OS === "android" ? 20 : 0,
-  },
-});
