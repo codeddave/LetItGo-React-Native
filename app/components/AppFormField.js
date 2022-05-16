@@ -4,14 +4,8 @@ import ErrorMessage from "../components/ErrorMessage";
 import { useFormikContext } from "formik";
 
 const AppFormField = ({ name, width, ...otherProps }) => {
-  const {
-    handleChange,
-    setFieldTouched,
-    setFieldValue,
-    values,
-    errors,
-    touched,
-  } = useFormikContext();
+  const { setFieldTouched, setFieldValue, values, errors, touched } =
+    useFormikContext();
   return (
     <>
       <AppTextInput
