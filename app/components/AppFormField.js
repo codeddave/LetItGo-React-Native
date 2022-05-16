@@ -1,8 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
 import AppTextInput from "../components/AppTextInput";
-import AppButton from "../components/AppButton";
-import AppText from "../components/AppText";
 import ErrorMessage from "../components/ErrorMessage";
 import { useFormikContext } from "formik";
 
